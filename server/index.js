@@ -137,6 +137,8 @@ app.post("/create", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const phone_number = req.body.phone_number;
+  const rental_date = req.body.rental_date;
+  const return_date = req.body.return_date;
 
   db.query(
     "INSERT INTO customers (name, email, phone_number) VALUES (?,?,?)",
@@ -145,20 +147,40 @@ app.post("/create", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Values Inserted");
+        const customer_id = result.insertId; // Get the auto-generated customer_id from the result
+
+        // Insert the rental date and return date into the Rentals table
+        db.query(
+          "INSERT INTO Rentals (customer_id, rental_date, return_date) VALUES (?, ?, ?)",
+          [customer_id, rental_date, return_date],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.send("Customer and Rental Details Inserted");
+            }
+          }
+        );
       }
     }
   );
 });
+// app.post("/create", (req, res) => {
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const phone_number = req.body.phone_number;
 
-// app.get("/customers", (req, res) => {
-//   db.query("SELECT * FROM customers", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
+//   db.query(
+//     "INSERT INTO customers (name, email, phone_number) VALUES (?,?,?)",
+//     [name, email, phone_number],
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         res.send("Values Inserted");
+//       }
 //     }
-//   });
+//   );
 // });
 
 app.get("/customers", async (req, res) => {
@@ -213,6 +235,7 @@ app.post("/createcar", (req, res) => {
   const make = req.body.make;
   const model = req.body.model;
   const year = req.body.year;
+  const rental_rate_per_day = req.body.rental_rate_per_day; // New parameter for rental rate per day
 
   db.query(
     "INSERT INTO Cars (make, model, year) VALUES (?,?,?)",
@@ -221,7 +244,19 @@ app.post("/createcar", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Values Inserted");
+        // After inserting the car into Cars table, also insert the rental rate into RentalRates table
+        const car_id = result.insertId; // Get the auto-generated car_id from the result
+        db.query(
+          "INSERT INTO RentalRates (car_id, rental_rate_per_day) VALUES (?, ?)",
+          [car_id, rental_rate_per_day],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.send("Car and Rental Rate Inserted");
+            }
+          }
+        );
       }
     }
   );
@@ -245,16 +280,6 @@ app.get("/cars", async (req, res) => {
     
   }
 });
-
-// app.get("/cars", (req, res) => {
-//   db.query("SELECT * FROM Cars", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
 
 app.put("/updatecar", (req, res) => {
   const car_id = req.body.car_id;

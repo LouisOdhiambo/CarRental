@@ -6,16 +6,18 @@ function App() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone_number, setPhone] = useState("");
-
+  const [rental_date, setRentalDate] = useState("");
+  const [return_date, setReturnDate] = useState("");
   const [newPhone, setNewPhone] = useState(0);
   const [customerList, setCustomerList] = useState([]);
 
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState(0);
-
+  const [rental_rate_per_day, setRentalRates] = useState(0);
   const [newYear, setNewYear] = useState(0);
   const [carList, setCarList] = useState([]);
+
 
   const [currentPage, setCurrentPage] = useState("customers");
 
@@ -46,6 +48,13 @@ function App() {
                   type="text"
                   onChange={(event) => {
                     setYear(event.target.value);
+                  }}
+                />
+                <label>Rate:</label>
+                <input
+                  type="number"
+                  onChange={(event) => {
+                    setRentalRates(event.target.value);
                   }}
                 />
               </div>
@@ -92,7 +101,7 @@ function App() {
 
           </div>
         );
-
+        
       default:
         return (
           <div className="App">
@@ -117,6 +126,20 @@ function App() {
                   type="text"
                   onChange={(event) => {
                     setPhone(event.target.value);
+                  }}
+                />
+                <label>Rental Date:</label>
+                <input
+                  type="date"
+                  onChange={(event) => {
+                    setRentalDate(event.target.value);
+                  }}
+                />
+                <label>Return Date:</label>
+                <input
+                  type="date"
+                  onChange={(event) => {
+                    setReturnDate(event.target.value);
                   }}
                 />
               </div>
@@ -174,6 +197,8 @@ function App() {
       name: name,
       email: email,
       phone_number: phone_number,
+      rental_date: rental_date,
+      return_date: return_date,
     }).then(() => {
       setCustomerList([
         ...customerList,
@@ -181,6 +206,8 @@ function App() {
           name: name,
           email: email,
           phone_number: phone_number,
+          rental_date: rental_date,
+          return_date: return_date,
         },
       ]);
     });
@@ -223,12 +250,12 @@ function App() {
   };
 
   // Cars
-
   const addCar = () => {
     Axios.post("http://localhost:3001/createcar", {
       make: make,
       model: model,
       year: year,
+      rental_rate_per_day: rental_rate_per_day,
     }).then(() => {
       setCarList([
         ...carList,
@@ -236,6 +263,7 @@ function App() {
           make: make,
           model: model,
           year: year,
+          rental_rate_per_day: rental_rate_per_day,
         },
       ]);
     });
@@ -276,6 +304,14 @@ function App() {
       );
     });
   };
+
+  // Rates
+  // const fetchRentalRates = () => {
+  //   Axios.get("http://localhost:3001/rentalRates").then((response) => {
+  //     setRentalRates(response.data);
+  //   });
+  // };
+
 
   return (
     <div className="Content">
