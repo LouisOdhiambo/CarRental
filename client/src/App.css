@@ -1,0 +1,140 @@
+.Content {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  background-color: rgb(14, 41, 53);
+  justify-content: space-around;
+  align-items: center;
+}
+
+ul {
+  width: 50%;
+  cursor: pointer;
+  list-style: none;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+li{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.App {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  width: 200px;
+  height: 30px;
+  font-size: 15px;
+  padding-left: 10px;
+  border-radius: 10px;
+  margin: 5px;
+
+}
+
+.addShow {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button {
+  background: aqua;
+  width: 250px;
+  height: 40px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+button:hover {
+  cursor: pointer;
+  background: rgb(14, 41, 53);
+  color: #fff;
+}
+
+.employees {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.employee {
+  width: 700px;
+  height: auto;
+  border: 1px solid black;
+  margin: 10px;
+  display: flex;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.employee h3 {
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+td input {
+  width: 100px;
+}
+
+td button {
+  margin-left: 5px;
+}
+
+.tableButton{
+  background: aqua;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.tableButton :hover{
+  background: rgb(14, 41, 53);
+  color: #fff;
+}
